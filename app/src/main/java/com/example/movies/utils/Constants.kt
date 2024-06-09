@@ -1,3 +1,3 @@
 package com.example.movies.utils
 
-val API_KEY = "50c03e100b77ba557faf61fe36074518"
+val AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGMwM2UxMDBiNzdiYTU1N2ZhZjYxZmUzNjA3NDUxOCIsInN1YiI6IjY2NjQyMmQzOTZjN2M5YTY2YWUxNjZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.oTqsjna627TAgmn6DXZE64qzyJ1azMFLH81LcLNUQbg"
