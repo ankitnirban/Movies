@@ -52,6 +52,8 @@ class MainActivity : ComponentActivity() {
                         is HomeScreenState.Success -> {
                             HomeScreen(
                                 topRatedMovies = state.topRatedMovies,
+                                topActionMovies = state.topActionMovies,
+                                topAnimationMovies = state.topAnimationMovies,
                                 modifier = Modifier.padding(innerPadding)
                             )
                         }
@@ -69,25 +71,42 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen(
     topRatedMovies: List<Movie>,
+    topActionMovies: List<Movie>,
+    topAnimationMovies: List<Movie>,
     modifier: Modifier = Modifier
 ) {
+    val scrollState =
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(
-            text = "Top Rated Movies"
-        )
+        MoviesSection(topRatedMovies, "Top Rated Movies")
         Spacer(modifier = Modifier.height(16.dp))
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(topRatedMovies.size) { index ->
-                MovieItem(movie = topRatedMovies[index])
-            }
+        MoviesSection(topActionMovies, "Action Movies")
+        Spacer(modifier = Modifier.height(16.dp))
+        MoviesSection(topAnimationMovies, "Animation Movies")
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun MoviesSection(
+    movies: List<Movie> = emptyList(),
+    title: String = "Movies",
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = title
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(movies.size) { index ->
+            MovieItem(movie = movies[index])
         }
     }
 }
@@ -109,7 +128,9 @@ fun MovieItem(movie: Movie, modifier: Modifier = Modifier) {
         )
         Text(
             text = movie.title.orEmpty(),
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
