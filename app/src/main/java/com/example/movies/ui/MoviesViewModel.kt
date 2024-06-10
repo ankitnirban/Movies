@@ -3,7 +3,7 @@ package com.example.movies.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.network.MoviesRepository
-import dagger.hilt.android.HiltAndroidApp
+import com.example.movies.ui.presentation.HomeScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
