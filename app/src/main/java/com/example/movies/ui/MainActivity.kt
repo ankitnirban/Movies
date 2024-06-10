@@ -20,22 +20,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movies.domain.Movie
-import com.example.movies.network.MoviesRepository
-import com.example.movies.network.MoviesService
 
-import com.example.movies.network.model.MoviesResponseDTO
 import com.example.movies.ui.theme.MoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -48,8 +42,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { it ->
-                    val innerPadding = it
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val homeScreenState = viewModel.homeScreenState.collectAsState()
                     when (val state = homeScreenState.value) {
                         is HomeScreenState.Loading -> {
@@ -58,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
                         is HomeScreenState.Success -> {
                             HomeScreen(
-                                topRatedMovies = state.movies,
+                                topRatedMovies = state.topRatedMovies,
                                 modifier = Modifier.padding(innerPadding)
                             )
                         }

@@ -25,7 +25,13 @@ class MoviesViewModel
         try {
             viewModelScope.launch {
                 _homeScreenState.value =
-                    HomeScreenState.Success(moviesRepository.getTopRatedMovies())
+                    HomeScreenState.Success(
+                        topRatedMovies = moviesRepository.getTopRatedMovies(),
+                        topActionMovies = moviesRepository.getTopRatedMovies()
+                            .filter { it.genreIds?.contains(28) ?: false },
+                        topAnimationMovies = moviesRepository.getTopRatedMovies()
+                            .filter { it.genreIds?.contains(16) ?: false }
+                    )
             }
         } catch (e: Exception) {
             _homeScreenState.value = HomeScreenState.Error(e.message)
