@@ -11,5 +11,5 @@ interface MoviesService {
     suspend fun getTopRatedMovies(
         @Header("Authorization") authorization: String = AUTH_TOKEN,
         @Query("language") language: String = "en-US"
-    ): MoviesResponseDTO
+    ): MoviesResponseDTO?
 }
