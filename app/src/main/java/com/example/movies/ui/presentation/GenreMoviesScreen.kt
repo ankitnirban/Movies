@@ -1,5 +1,6 @@
 package com.example.movies.ui.presentation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +29,9 @@ fun GenreMoviesScreen(
     val scrollState = rememberScrollState()
     val homeScreenState by viewModel.homeScreenState.collectAsState()
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -40,12 +43,14 @@ fun GenreMoviesScreen(
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        MoviesGrid(movies = when (genre) {
-            "Top Rated" -> (homeScreenState as HomeScreenState.Success).topRatedMovies
-            "Action" -> (homeScreenState as HomeScreenState.Success).topActionMovies
-            "Animation" -> (homeScreenState as HomeScreenState.Success).topAnimationMovies
-            else -> emptyList()
-        })
+        MoviesGrid(
+            movies = when (genre) {
+                "Top Rated" -> (homeScreenState as HomeScreenState.Success).topRatedMovies
+                "Action" -> (homeScreenState as HomeScreenState.Success).topActionMovies
+                "Animation" -> (homeScreenState as HomeScreenState.Success).topAnimationMovies
+                else -> emptyList()
+            }
+        )
     }
 }
 
@@ -53,9 +58,11 @@ fun GenreMoviesScreen(
 fun MoviesGrid(movies: List<Movie> = emptyList(), modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(10) { index ->
+        items(movies.size) { index ->
             MovieItem(movie = movies[index])
         }
     }
